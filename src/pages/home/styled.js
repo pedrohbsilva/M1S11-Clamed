@@ -20,7 +20,7 @@ export const HomeLiStyled = styled.li`
 
 export const HomeImgStyled = styled.img`
   border-radius: 90px;
-  width: ${(props) => props.newImg ? "10px" : "90px"};
+  width: ${(props) => props.newimg ? "10px" : "90px"};
 `
 
 export const HomeLinkStyled = styled(Link)`

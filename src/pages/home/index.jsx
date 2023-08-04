@@ -12,15 +12,30 @@ import {
 
 function Home() {
   const [users, setUsers] = useState([]);
-
+  const [loading, setLoading] = useState(false)
+  
   useEffect(() => {
     const load = async () => {
-      const response = await api.get("/users");
-
-      setUsers(response.data);
+      setLoading(true)
+      try {
+        const response = await api.get("/users");
+        setUsers(response.data);
+      } catch (error) {
+        console.log(error.message)
+        alert(`Erro de dados. Favor contatar suporte\n${error.message}`)
+      }
+      setLoading(false)
     };
     load();
   }, []);
+
+  if(loading) {
+    return (
+      <p>
+        Carregando...
+      </p>
+    )
+  }
 
   return (
     <>
@@ -34,8 +49,7 @@ function Home() {
                 <HomeLiStyled key={login} className="li">
                   <p>{login}</p>
                   <HomeImgStyled
-                    newImg={"defunkt" === login}
-                    src={avatar_url}
+                     src={avatar_url}
                   />
                   <HomeLinkStyled to={`/portfolio/${login}`}>
                     Venha ver meu portfolio
